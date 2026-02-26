@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <style>
         :root {
@@ -778,40 +778,56 @@
     <button class="lang-float" id="lang-btn" onclick="toggleLanguage()">EN</button>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
-        /* --- Dynamic Images from Google Drive (JSONP) --- */
+        /* --- Dynamic Images from Google Drive --- */
         const DRIVE_API = "https://script.google.com/macros/s/AKfycbycOMreQiUSarfAkujIFuUF6DMZspUYdIvSLzwDA9a3xIeWn8kEd_TLUSrqc4sjTFA/exec";
-
-        function driveThumb(fileId) {
-            return "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w1200";
-        }
 
         function handleDriveData(data) {
             const grid     = document.getElementById('gallery-grid');
             const heroImg  = document.getElementById('hero-img');
             const aboutImg = document.getElementById('about-img');
 
-            // Assets
+            // Assets: look for keys containing "hero" or "about"
             if (data.assets) {
-                if (data.assets.hero && heroImg) {
-                    heroImg.src = data.assets.hero;
-                    heroImg.style.display = 'block';
-                }
-                if (data.assets.about && aboutImg) {
-                    aboutImg.src = data.assets.about;
-                    aboutImg.style.display = 'block';
-                }
+                Object.keys(data.assets).forEach(function(key) {
+                    const url = data.assets[key];
+                    if (key.toLowerCase().includes('hero') && heroImg) {
+                        heroImg.src = url;
+                        heroImg.style.display = 'block';
+                    }
+                    if (key.toLowerCase().includes('about') && aboutImg) {
+                        aboutImg.src = url;
+                        aboutImg.style.display = 'block';
+                    }
+                });
             }
 
-            // Gallery
-            if (!data.gallery || data.gallery.length === 0) {
+            // Gallery: all images from gallery folder
+            // But also check if hero/about accidentally landed in gallery
+            const galleryItems = (data.gallery || []).filter(function(img) {
+                const n = img.name.toLowerCase();
+                return !n.includes('hero') && !n.includes('about');
+            });
+
+            // If hero/about are in gallery folder, show them as assets
+            (data.gallery || []).forEach(function(img) {
+                const n = img.name.toLowerCase();
+                if (n.includes('hero') && heroImg && !heroImg.src) {
+                    heroImg.src = img.url;
+                    heroImg.style.display = 'block';
+                }
+                if (n.includes('about') && aboutImg && !aboutImg.src) {
+                    aboutImg.src = img.url;
+                    aboutImg.style.display = 'block';
+                }
+            });
+
+            if (galleryItems.length === 0) {
                 grid.innerHTML = '<div class="gallery-loading"><i class="fas fa-images"></i><span>אין תמונות בגלריה עדיין</span></div>';
                 return;
             }
-
             grid.innerHTML = '';
             galleryImages.length = 0;
-
-            data.gallery.forEach(function(img, i) {
+            galleryItems.forEach(function(img, i) {
                 galleryImages.push(img.url);
                 const item  = document.createElement('div');
                 item.className = 'gallery-item';
@@ -825,14 +841,35 @@
             });
         }
 
-        function loadDriveImages() {
-            const script = document.createElement('script');
-            script.src   = DRIVE_API + "?callback=handleDriveData&t=" + Date.now();
-            script.onerror = function() {
+        async function loadDriveImages() {
+            // Try fetch first
+            try {
+                const res  = await fetch(DRIVE_API, { mode: 'cors' });
+                const data = await res.json();
+                handleDriveData(data);
+                return;
+            } catch(e1) {
+                // fetch failed, try JSONP
+            }
+
+            // Fallback: JSONP
+            try {
+                await new Promise(function(resolve, reject) {
+                    window._driveCallback = function(data) {
+                        handleDriveData(data);
+                        resolve();
+                    };
+                    const s   = document.createElement('script');
+                    s.src     = DRIVE_API + '?callback=_driveCallback&t=' + Date.now();
+                    s.onload  = resolve;
+                    s.onerror = reject;
+                    document.head.appendChild(s);
+                    setTimeout(reject, 8000); // 8s timeout
+                });
+            } catch(e2) {
                 const grid = document.getElementById('gallery-grid');
                 if (grid) grid.innerHTML = '<div class="gallery-loading"><i class="fas fa-exclamation-circle"></i><span>שגיאה בטעינת תמונות</span></div>';
-            };
-            document.head.appendChild(script);
+            }
         }
 
         window.addEventListener('DOMContentLoaded', loadDriveImages);
@@ -1024,4 +1061,99 @@
             if (el) el.scrollIntoView({ behavior: 'smooth' });
         }
 
-        function selectServiceAndScroll(serviceValue)
+        function selectServiceAndScroll(serviceValue) {
+            document.getElementById('service-select').value = serviceValue;
+            scrollToSection('contact');
+        }
+
+        /* --- Dynamic Images from Google Drive --- */
+        const DRIVE_API = "https://script.google.com/macros/s/AKfycbycOMreQiUSarfAkujIFuUF6DMZspUYdIvSLzwDA9a3xIeWn8kEd_TLUSrqc4sjTFA/exec";
+
+        function handleDriveData(data) {
+            const grid     = document.getElementById('gallery-grid');
+            const heroImg  = document.getElementById('hero-img');
+            const aboutImg = document.getElementById('about-img');
+
+            if (data.assets) {
+                Object.keys(data.assets).forEach(function(key) {
+                    const url = data.assets[key];
+                    if (key.toLowerCase().includes('hero') && heroImg) {
+                        heroImg.src = url;
+                        heroImg.style.display = 'block';
+                    }
+                    if (key.toLowerCase().includes('about') && aboutImg) {
+                        aboutImg.src = url;
+                        aboutImg.style.display = 'block';
+                    }
+                });
+            }
+
+            const galleryItems = (data.gallery || []).filter(function(img) {
+                const n = img.name.toLowerCase();
+                return !n.includes('hero') && !n.includes('about');
+            });
+
+            (data.gallery || []).forEach(function(img) {
+                const n = img.name.toLowerCase();
+                if (n.includes('hero') && heroImg && !heroImg.src) {
+                    heroImg.src = img.url;
+                    heroImg.style.display = 'block';
+                }
+                if (n.includes('about') && aboutImg && !aboutImg.src) {
+                    aboutImg.src = img.url;
+                    aboutImg.style.display = 'block';
+                }
+            });
+
+            if (galleryItems.length === 0) {
+                grid.innerHTML = '<div class="gallery-loading"><i class="fas fa-images"></i><span>אין תמונות בגלריה עדיין</span></div>';
+                return;
+            }
+            grid.innerHTML = '';
+            galleryImages.length = 0;
+            galleryItems.forEach(function(img, i) {
+                galleryImages.push(img.url);
+                const item  = document.createElement('div');
+                item.className = 'gallery-item';
+                item.onclick   = function() { openLightbox(i); };
+                const image    = document.createElement('img');
+                image.src      = img.url;
+                image.alt      = img.name;
+                image.loading  = 'lazy';
+                item.appendChild(image);
+                grid.appendChild(item);
+            });
+        }
+
+        async function loadDriveImages() {
+            try {
+                const res  = await fetch(DRIVE_API, { mode: 'cors' });
+                const data = await res.json();
+                handleDriveData(data);
+                return;
+            } catch(e1) {}
+
+            try {
+                await new Promise(function(resolve, reject) {
+                    window._driveCallback = function(data) {
+                        handleDriveData(data);
+                        resolve();
+                    };
+                    const s   = document.createElement('script');
+                    s.src     = DRIVE_API + '?callback=_driveCallback&t=' + Date.now();
+                    s.onload  = resolve;
+                    s.onerror = reject;
+                    document.head.appendChild(s);
+                    setTimeout(reject, 8000);
+                });
+            } catch(e2) {
+                const grid = document.getElementById('gallery-grid');
+                if (grid) grid.innerHTML = '<div class="gallery-loading"><i class="fas fa-exclamation-circle"></i><span>שגיאה בטעינת תמונות</span></div>';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', loadDriveImages);
+
+    </script>
+</body>
+</html>
