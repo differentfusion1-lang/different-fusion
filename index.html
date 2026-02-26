@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Different Fusion | Dorel Fadlon & Sivan Haim</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+        :root {
+            --primary: #00f2ff;
+            --secondary: #ff00ea;
+            --bg-dark: #020205;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html, body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 15px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(2, 2, 5, 0.9);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            text-decoration: none;
+            color: var(--text-main);
+            z-index: 1100;
+        }
+
+        .logo span { color: var(--primary); }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links { 
+            display: flex; 
+            gap: 30px; 
+        }
+
+        /* Desktop: show inline as if inside nav */
+        @media (min-width: 993px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                height: 60px;
+                width: auto;
+                background: transparent;
+                flex-direction: row;
+                box-shadow: none;
+                pointer-events: all;
+                right: auto;
+                gap: 30px;
+                align-items: center;
+                justify-content: center;
+                z-index: 1001;
+            }
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        .lang-switch {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 4px 10px;
+            font-family: 'Bebas Neue';
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 4px;
+            z-index: 1100;
+        }
+
+        .lang-switch:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #000;
+            border-top: 1px solid rgba(0, 242, 255, 0.2);
+            padding: 50px 8% 30px;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.2rem;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+            color: var(--text-main);
+        }
+
+        .footer-brand span { color: var(--primary); }
+
+        .footer-sub {
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            color: var(--text-dim);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .footer-icons a {
+            width: 46px;
+            height: 46px;
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .footer-icons a:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .footer-copy {
+            font-size: 0.8rem;
+            color: rgba(160, 160, 160, 0.4);
+            letter-spacing: 1px;
+        }
+
+        /* Safari / iOS fixes */
+        @supports (-webkit-touch-callout: none) {
+            .hero {
+                height: -webkit-fill-available;
+                min-height: 600px;
+            }
+            .nav-links {
+                height: -webkit-fill-available;
+            }
+        }
+
+        /* Prevent tap highlight on iOS */
+        a, button {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Fix for position:fixed on iOS Safari */
+        .lang-float {
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+
+        /* Floating language button */
+        .lang-float {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 18px;
+            font-family: 'Bebas Neue';
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 4px;
+            z-index: 1200;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+        }
+
+        .lang-float:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
+        }
+
+        /* --- Mobile Menu Burger --- */
+        .burger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1100;
+            padding: 5px;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-main);
+            transition: var(--transition);
+        }
+
+        /* Burger Animation */
+        .burger.active .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
+        .burger.active .line2 { opacity: 0; }
+        .burger.active .line3 { transform: rotate(45deg) translate(-5px, -6px); }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            height: -webkit-fill-available;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-dark);
+        }
+
+        .hero-bg-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            background: linear-gradient(135deg, #020205 0%, #0a0a1a 50%, #020205 100%);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 25%;
+            filter: brightness(0.9) contrast(1.1);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(3.5rem, 12vw, 8.5rem);
+            margin-bottom: 5px;
+            color: white;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .btn-main {
+            padding: 16px 45px;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-family: 'Bebas Neue';
+            font-size: 1.5rem;
+            text-decoration: none;
+            letter-spacing: 2px;
+            transition: var(--transition);
+            background: rgba(0, 242, 255, 0.1);
+            display: inline-block;
+        }
+
+        .btn-main:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        /* --- Sections --- */
+        section { padding: 80px 8%; position: relative; }
+
+        .section-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            margin-bottom: 50px;
+            border-inline-start: 6px solid var(--secondary);
+            padding-inline-start: 20px;
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
+        /* --- About Section --- */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .about-text p {
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            color: var(--text-dim);
+        }
+        .about-image img {
+            width: 100%;
+            border: 1px solid var(--primary);
+            box-shadow: 15px 15px 0px var(--primary);
+            transition: var(--transition);
+        }
+        .about-image img:hover {
+            transform: translate(-5px, -5px);
+            box-shadow: 20px 20px 0px var(--secondary);
+        }
+
+        /* --- Services Grid --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .services-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .service-card {
+            background: var(--bg-card);
+            padding: 40px 25px;
+            border: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .service-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.1);
+        }
+        .service-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; display: block; }
+        .service-card h3 { font-family: 'Rajdhani'; font-weight: 700; font-size: 1.8rem; margin-bottom: 15px; }
+
+        /* --- Music Section --- */
+        .sc-options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        .sc-label {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.3rem;
+            color: var(--primary);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+        .soundcloud-widget {
+            border: 1px solid var(--primary);
+            box-shadow: 6px 6px 0px var(--primary);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .soundcloud-widget:hover {
+            box-shadow: 10px 10px 0px var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        /* --- Gallery --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .gallery-item { 
+            aspect-ratio: 1/1; 
+            overflow: hidden; 
+            cursor: pointer;
+            position: relative;
+        }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .gallery-item:hover img { transform: scale(1.05); }
+        
+        /* --- Placeholders --- */
+        .gallery-placeholder-item {
+            background: #0a0a0f;
+            border: 1px solid rgba(0,242,255,0.15);
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: rgba(0,242,255,0.3);
+        }
+
+        .gallery-placeholder i { font-size: 2rem; }
+        .gallery-placeholder span { font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; }
+
+        .about-img-placeholder {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: #0a0a0f;
+            border: 1px solid var(--primary);
+            box-shadow: 15px 15px 0px var(--primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            color: rgba(0,242,255,0.4);
+        }
+
+        .about-img-placeholder i { font-size: 3rem; }
+        .about-img-placeholder span { font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; }
+
+        /* --- Gallery Loading --- */
+        .gallery-loading {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 60px;
+            color: var(--text-dim);
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+        .gallery-loading i { font-size: 2rem; color: var(--primary); }
+
+        /* --- Lightbox --- */
+        #lightbox {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+        }
+        #lightbox.active { display: flex; }
+        #lightbox img { 
+            max-width: 90%; 
+            max-height: 80vh; 
+            user-select: none;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+        .lb-close { position: absolute; top: 30px; right: 30px; color: white; font-size: 2.5rem; cursor: pointer; z-index: 2001; }
+        
+        .lb-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 20px;
+            cursor: pointer;
+            font-size: 2rem;
+            transition: var(--transition);
+            border: none;
+            z-index: 2001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .lb-nav:hover { background: var(--primary); color: var(--bg-dark); }
+        .lb-prev { left: 20px; }
+        .lb-next { right: 20px; }
+
+        /* --- Contact --- */
+        .contact-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 60px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; margin-bottom: 10px; color: var(--primary); font-size: 1.1rem; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 15px; background: #1a1a1f; border: 1px solid rgba(255, 255, 255, 0.15); 
+            color: #ffffff; font-family: 'Rajdhani'; font-size: 1rem; outline: none;
+        }
+        .btn-submit {
+            width: 100%; padding: 20px; background: var(--primary); color: var(--bg-dark);
+            border: none; font-family: 'Bebas Neue'; font-size: 1.8rem; cursor: pointer;
+            transition: var(--transition);
+        }
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 992px) {
+            .burger { display: flex; }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%;
+                background: var(--bg-dark);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: var(--transition);
+                box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+                z-index: 1060;
+                gap: 40px;
+                pointer-events: none;
+            }
+
+            /* For RTL support, we flip the side based on direction */
+            [dir="rtl"] .nav-links {
+                right: auto;
+                left: -100%;
+            }
+
+            .nav-links.active {
+                right: 0;
+                pointer-events: all;
+            }
+
+            [dir="rtl"] .nav-links.active {
+                left: 0;
+                right: auto;
+            }
+
+            .nav-links a {
+                font-size: 1.5rem;
+            }
+
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.7);
+                display: none;
+                z-index: 1040;
+            }
+            .overlay.active { display: block; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 4.5rem; }
+            .about-content { grid-template-columns: 1fr; }
+            .lb-nav { padding: 10px; font-size: 1.5rem; }
+            .lb-prev { left: 5px; }
+            .lb-next { right: 5px; }
+            .contact-box { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">DIFFERENT<span>FUSION</span></a>
+        
+        <div class="nav-right">
+            <div class="burger" id="burger" onclick="toggleMenu()">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu (outside nav so it covers full viewport height) -->
+    <div class="nav-links" id="nav-links">
+        <a href="#" data-i18n="nav-about" onclick="scrollToSection('about'); return false;">הסיפור שלנו</a>
+        <a href="#" data-i18n="nav-services" onclick="scrollToSection('services'); return false;">מה אנחנו עושים</a>
+        <a href="#" data-i18n="nav-music" onclick="scrollToSection('music'); return false;">מוזיקה וסטים</a>
+        <a href="#" data-i18n="nav-gallery" onclick="scrollToSection('gallery'); return false;">רגעים מהבמה</a>
+        <a href="#" data-i18n="nav-contact" onclick="scrollToSection('contact'); return false;">בואו נשתף פעולה</a>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-bg-container">
+            <img id="hero-img" src="" alt="Dorel and Sivan" class="hero-image" style="display:none;">
+        </div>
+        <div class="hero-content">
+            <h1>DIFFERENT FUSION</h1>
+            <p style="font-size: 1.5rem; letter-spacing: 5px; font-weight: 300;">DOREL FADLON & SIVAN HAIM</p>
+            <div style="margin-top: 40px;">
+                <a href="#" class="btn-main" data-i18n="hero-cta" onclick="scrollToSection('contact'); return false;">הזמן עכשיו</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title" data-i18n="about-title">הסיפור שלנו</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p data-i18n="about-p1">Different Fusion הוא פרויקט מוזיקלי ייחודי שנולד מהחיבור היצירתי בין דוראל פדלון וסיון חיים. המטרה שלנו היא להביא סאונד אחר, רענן ואנרגטי לעולם האירועים וההפקות המוזיקליות.</p>
+                <p data-i18n="about-p2">אנחנו מאמינים שמוזיקה היא לא רק צלילים, אלא חוויה רגשית וויזואלית שלמה. השילוב בינינו מאפשר לנו לתת מענה היקפי - מדיג'יי סטים בועטים ועד להפקה מוזיקלית מאפס.</p>
+            </div>
+            <div class="about-image">
+                <img id="about-img" src="" alt="Different Fusion Studio" style="display:none;">
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2 class="section-title" data-i18n="services-title">מה אנחנו עושים</h2>
+        <div class="services-grid">
+            <div class="service-card" onclick="selectServiceAndScroll('events')">
+                <i class="fas fa-bolt"></i>
+                <h3 data-i18n="svc-1-t">הופעות ואירועים</h3>
+                <p data-i18n="svc-1-d">סטים של Live DJ המשלבים אנרגיה גבוהה וקריאת קהל מדויקת בכל אירוע.</p>
+            </div>
+            <div class="service-card" onclick="selectServiceAndScroll('production')">
+                <i class="fas fa-sliders-h"></i>
+                <h3 data-i18n="svc-2-t">הפקה מוזיקלית</h3>
+                <p data-i18n="svc-2-d">יצירת סאונד ייחודי ועיבודים מקוריים המותאמים אישית לחזון שלכם.</p>
+            </div>
+            <div class="service-card" onclick="selectServiceAndScroll('recording')">
+                <i class="fas fa-microphone-alt"></i>
+                <h3 data-i18n="svc-3-t">הקלטות אולפן</h3>
+                <p data-i18n="svc-3-d">הקלטה, מיקס ומאסטרינג בסטנדרטים הגבוהים ביותר באולפן המקצועי שלנו.</p>
+            </div>
+            <div class="service-card" onclick="selectServiceAndScroll('parties')">
+                <i class="fas fa-glass-cheers"></i>
+                <h3 data-i18n="svc-4-t">הפקת מסיבות</h3>
+                <p data-i18n="svc-4-d">תכנון והפקה של אירועי קונספט ומסיבות פרטיות עם ירידה לפרטים.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Section -->
+    <section id="music">
+        <h2 class="section-title" data-i18n="music-title">מוזיקה וסטים</h2>
+        <div class="soundcloud-widget">
+            <iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay"
+                src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/differentfusionmusic22&color=%2300f2ff&auto_play=false&show_comments=false&show_user=true&visual=false"
+                onerror="this.parentElement.innerHTML=scFallback()">
+            </iframe>
+        </div>
+        <div id="sc-fallback" style="display:none; text-align:center; margin-top:20px;">
+            <a href="https://soundcloud.com/differentfusionmusic22" target="_blank" class="btn-main" style="margin-top:20px;">
+                <i class="fab fa-soundcloud" style="margin-left:10px;"></i> האזן ב-SoundCloud
+            </a>
+        </div>
+        <script>
+            // Show fallback if iframe fails to load in Safari
+            setTimeout(function(){
+                var iframe = document.querySelector('.soundcloud-widget iframe');
+                if(iframe){
+                    try {
+                        var h = iframe.contentWindow.document.body;
+                        if(!h) throw '';
+                    } catch(e) {
+                        // iframe blocked - show fallback button
+                    }
+                }
+                // Always show fallback link below player
+                var fb = document.getElementById('sc-fallback');
+                if(fb) fb.style.display = 'block';
+            }, 2000);
+        </script>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery">
+        <h2 class="section-title" data-i18n="gallery-title">רגעים מהבמה</h2>
+        <div class="gallery-grid" id="gallery-grid">
+            <div class="gallery-loading"><i class="fas fa-spinner fa-spin"></i><span>טוען תמונות...</span></div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="contact-box">
+            <h2 class="section-title" style="border:none; text-align:center; padding:0; margin-bottom:40px;" data-i18n="contact-title">בואו נשתף פעולה</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label data-i18n="lbl-name">שם מלא</label>
+                    <input type="text" id="contact-name" required placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="lbl-service">סוג השירות</label>
+                    <select id="service-select">
+                        <option value="events" data-i18n="opt-1">הופעות ואירועים</option>
+                        <option value="production" data-i18n="opt-2">הפקה מוזיקלית</option>
+                        <option value="recording" data-i18n="opt-3">הקלטות אולפן</option>
+                        <option value="parties" data-i18n="opt-4">הפקת מסיבות</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="lbl-msg">הודעה</label>
+                    <textarea id="contact-message" rows="4" required placeholder="Message"></textarea>
+                </div>
+                <button type="submit" class="btn-submit" data-i18n="btn-send">שלח הודעה</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox">
+        <span class="lb-close" onclick="closeLightbox()">&times;</span>
+        <button class="lb-nav lb-prev" onclick="prevImage()"><i class="fas fa-chevron-left"></i></button>
+        <img id="lightbox-img" src="">
+        <button class="lb-nav lb-next" onclick="nextImage()"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p class="footer-brand">DIFFERENT<span>FUSION</span></p>
+        <p class="footer-sub">DOREL FADLON & SIVAN HAIM</p>
+        <div class="footer-icons">
+            <a href="https://www.facebook.com/profile.php?id=100071292963697" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/differentfusionofficial/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@different_fusion_" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://soundcloud.com/differentfusionmusic22" target="_blank" title="SoundCloud"><i class="fab fa-soundcloud"></i></a>
+            <a href="/cdn-cgi/l/email-protection#8fcbc6c9c9caddcac1dbc9dadcc6c0c1bdbdcfe8e2eee6e3a1ece0e2" title="Gmail"><i class="fas fa-envelope"></i></a>
+            <a href="https://wa.me/972506805342" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p class="footer-copy">© 2025 Different Fusion. All rights reserved.</p>
+    </footer>
+
+    <!-- Floating Language Button -->
+    <button class="lang-float" id="lang-btn" onclick="toggleLanguage()">EN</button>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+        /* --- Dynamic Images from Google Drive (JSONP) --- */
+        const DRIVE_API = "https://script.google.com/macros/s/AKfycbycOMreQiUSarfAkujIFuUF6DMZspUYdIvSLzwDA9a3xIeWn8kEd_TLUSrqc4sjTFA/exec";
+
+        function driveThumb(fileId) {
+            return "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w1200";
+        }
+
+        function handleDriveData(data) {
+            const grid     = document.getElementById('gallery-grid');
+            const heroImg  = document.getElementById('hero-img');
+            const aboutImg = document.getElementById('about-img');
+
+            // Assets
+            if (data.assets) {
+                if (data.assets.hero && heroImg) {
+                    heroImg.src = data.assets.hero;
+                    heroImg.style.display = 'block';
+                }
+                if (data.assets.about && aboutImg) {
+                    aboutImg.src = data.assets.about;
+                    aboutImg.style.display = 'block';
+                }
+            }
+
+            // Gallery
+            if (!data.gallery || data.gallery.length === 0) {
+                grid.innerHTML = '<div class="gallery-loading"><i class="fas fa-images"></i><span>אין תמונות בגלריה עדיין</span></div>';
+                return;
+            }
+
+            grid.innerHTML = '';
+            galleryImages.length = 0;
+
+            data.gallery.forEach(function(img, i) {
+                galleryImages.push(img.url);
+                const item  = document.createElement('div');
+                item.className = 'gallery-item';
+                item.onclick   = function() { openLightbox(i); };
+                const image    = document.createElement('img');
+                image.src      = img.url;
+                image.alt      = img.name;
+                image.loading  = 'lazy';
+                item.appendChild(image);
+                grid.appendChild(item);
+            });
+        }
+
+        function loadDriveImages() {
+            const script = document.createElement('script');
+            script.src   = DRIVE_API + "?callback=handleDriveData&t=" + Date.now();
+            script.onerror = function() {
+                const grid = document.getElementById('gallery-grid');
+                if (grid) grid.innerHTML = '<div class="gallery-loading"><i class="fas fa-exclamation-circle"></i><span>שגיאה בטעינת תמונות</span></div>';
+            };
+            document.head.appendChild(script);
+        }
+
+        window.addEventListener('DOMContentLoaded', loadDriveImages);
+
+    </script><script>
+        const translations = {
+            he: {
+                "nav-about": "הסיפור שלנו",
+                "nav-services": "מה אנחנו עושים",
+                "nav-music": "מוזיקה וסטים",
+                "nav-gallery": "רגעים מהבמה",
+                "nav-contact": "בואו נשתף פעולה",
+                "hero-cta": "הזמן עכשיו",
+                "about-title": "הסיפור שלנו",
+                "about-p1": "Different Fusion הוא פרויקט מוזיקלי ייחודי שנולד מהחיבור היצירתי בין דוראל פדלון וסיון חיים. המטרה שלנו היא להביא סאונד אחר, רענן ואנרגטי לעולם האירועים וההפקות המוזיקליות.",
+                "about-p2": "אנחנו מאמינים שמוזיקה היא לא רק צלילים, אלא חוויה רגשית וויזואלית שלמה. השילוב בינינו מאפשר לנו לתת מענה היקפי - מדיג'יי סטים בועטים ועד להפקה מוזיקלית מאפס.",
+                "services-title": "מה אנחנו עושים",
+                "svc-1-t": "הופעות ואירועים",
+                "svc-1-d": "סטים של Live DJ המשלבים אנרגיה גבוהה וקריאת קהל מדויקת בכל אירוע.",
+                "svc-2-t": "הפקה מוזיקלית",
+                "svc-2-d": "יצירת סאונד ייחודי ועיבודים מקוריים המותאמים אישית לחזון שלכם.",
+                "svc-3-t": "הקלטות אולפן",
+                "svc-3-d": "הקלטה, מיקס ומאסטרינג בסטנדרטים הגבוהים ביותר באולפן המקצועי שלנו.",
+                "svc-4-t": "הפקת מסיבות",
+                "svc-4-d": "תכנון והפקה של אירועי קונספט ומסיבות פרטיות עם ירידה לפרטים.",
+                "music-title": "מוזיקה וסטים",
+                "gallery-title": "רגעים מהבמה",
+                "contact-title": "בואו נשתף פעולה",
+                "lbl-name": "שם מלא",
+                "lbl-service": "סוג השירות",
+                "lbl-msg": "הודעה",
+                "btn-send": "שלח הודעה",
+                "opt-1": "הופעות ואירועים",
+                "opt-2": "הפקה מוזיקלית",
+                "opt-3": "הקלטות אולפן",
+                "opt-4": "הפקת מסיבות"
+            },
+            en: {
+                "nav-about": "Our Story",
+                "nav-services": "What We Do",
+                "nav-music": "Music & Sets",
+                "nav-gallery": "Stage Moments",
+                "nav-contact": "Let's Collaborate",
+                "hero-cta": "Book Now",
+                "about-title": "Our Story",
+                "about-p1": "Different Fusion is a unique musical project born from the creative synergy between Dorel Fadlon and Sivan Haim. Our goal is to bring a fresh, energetic sound to the world of events and music production.",
+                "about-p2": "We believe music isn't just sound, but a complete emotional and visual experience. Our combination allows us to provide full solutions - from high-energy DJ sets to custom music production.",
+                "services-title": "What We Do",
+                "svc-1-t": "Live Shows & Events",
+                "svc-1-d": "High-energy Live DJ sets with precise crowd reading for any event.",
+                "svc-2-t": "Music Production",
+                "svc-2-d": "Creating unique sounds and original arrangements tailored to your vision.",
+                "svc-3-t": "Studio Recordings",
+                "svc-3-d": "Recording, mixing, and mastering at the highest standards in our professional studio.",
+                "svc-4-t": "Party Production",
+                "svc-4-d": "Planning and producing concept events and private parties with attention to detail.",
+                "music-title": "Music & Sets",
+                "gallery-title": "Stage Moments",
+                "contact-title": "Let's Collaborate",
+                "lbl-name": "Full Name",
+                "lbl-service": "Service Type",
+                "lbl-msg": "Message",
+                "btn-send": "Send Message",
+                "opt-1": "Live Shows & Events",
+                "opt-2": "Music Production",
+                "opt-3": "Studio Recordings",
+                "opt-4": "Party Production"
+            }
+        };
+
+        let currentLang = 'he';
+
+        /* --- Language Support --- */
+        function toggleLanguage() {
+            currentLang = currentLang === 'he' ? 'en' : 'he';
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'he' ? 'rtl' : 'ltr';
+            document.getElementById('lang-btn').innerText = currentLang === 'he' ? 'EN' : 'HE';
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.innerText = translations[currentLang][key];
+            });
+            // Update UI layout if menu is open
+            if(document.getElementById('nav-links').classList.contains('active')) {
+                closeMenu();
+            }
+        }
+
+        /* --- Responsive Menu --- */
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            const burger = document.getElementById('burger');
+            const overlay = document.getElementById('overlay');
+            
+            navLinks.classList.toggle('active');
+            burger.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            if(navLinks.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function closeMenu() {
+            const navLinks = document.getElementById('nav-links');
+            const burger = document.getElementById('burger');
+            const overlay = document.getElementById('overlay');
+            
+            navLinks.classList.remove('active');
+            burger.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        /* --- Gallery Logic --- */
+        const galleryImages = [
+            "https://scontent.ftlv23-1.fna.fbcdn.net/v/t51.75761-15/491434121_18039216926625584_4179460538848356776_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=13d280&_nc_ohc=OlBrQGxdSiQQ7kNvwHenVzV&_nc_oc=AdlLdOcNQlc0CXWtwYKDVFrSuYA0KlO1izwVvPWExk6HwkpQi5uZEJFqoZriPHuA3mg&_nc_zt=23&_nc_ht=scontent.ftlv23-1.fna&_nc_gid=OVVfQ40tI1biRFHFhGydTg&oh=00_AfsmDcYuhExSy7c4Q3bNx7KFczqGaXUB3NgY2OEE6zI0jA&oe=69A4C9EA",
+            "https://scontent.fsdv2-1.fna.fbcdn.net/v/t51.82787-15/532929172_18052858271625584_5090822862400550124_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=13d280&_nc_ohc=nLMD9AdjZQwQ7kNvwEoCI6i&_nc_oc=AdmfVHJLvfsZoacM8WkxvlZBSRNGyqTqXBEjMHHeweIjf73EfLnjpiSsox2KhXdrd-k&_nc_zt=23&_nc_ht=scontent.fsdv2-1.fna&_nc_gid=38JVnkRa0tHkkGFSguYx5w&oh=00_Aft_mbzmijeS2kiO28rvpUNoxqTn-nL7hGehupNeSFSxjw&oe=69A4C0F3",
+            "https://scontent.ftlv23-1.fna.fbcdn.net/v/t51.82787-15/603948724_18068637734625584_3840584997983001117_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=13d280&_nc_ohc=iDULlQ-st_EQ7kNvwFeOBnN&_nc_oc=Adnez5TowPAFtFzSnv8GdL-X5ImBdrbZAxzeHvlNtJKby_ae2TXkiqY_puJ6AOxdSE8&_nc_zt=23&_nc_ht=scontent.ftlv23-1.fna&_nc_gid=7PP-M9PKHvJagQ8IRxA62A&oh=00_AfuLsThf2dO2OMMBIw7g661f31uzA0xNnmTUcuI4owoGWg&oe=69A4AB2B",
+            "https://scontent.ftlv23-1.fna.fbcdn.net/v/t51.75761-15/472334804_18027280139625584_5767399209160854898_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=13d280&_nc_ohc=uVUme0tLRCQQ7kNvwECJ_31&_nc_oc=Adli-opUJMXcA1_a_2Aqq_QEcs_x6wOsW_uE9oL49lwpRNfcE5Y9vk_g0p3T-vF7PRw&_nc_zt=23&_nc_ht=scontent.ftlv23-1.fna&_nc_gid=o4J3cLHSZLeRMMm8prDwng&oh=00_AftkkrB43YdZZr1YlUyZSj2ccNpPPbCgk_elaamco02BTw&oe=69A4AE34",
+            "https://scontent.ftlv23-1.fna.fbcdn.net/v/t51.82787-15/608849275_18068637713625584_1046058259929833479_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=13d280&_nc_ohc=aQNeR6qwMKYQ7kNvwFL2CPF&_nc_oc=AdkNy_em-I_4fiyKkAaOv2lHV5Ld7Q3gAw8q61kMvEtqygv02vopCqL-dN25MbjARjE&_nc_zt=23&_nc_ht=scontent.ftlv23-1.fna&_nc_gid=7PP-M9PKHvJagQ8IRxA62A&oh=00_AftN9M5BNO8-l29ZxvqKCAxrnO3gKbyymMDboTwkzxDCMA&oe=69A49B0C"
+        ];
+
+        let currentIndex = 0;
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function openLightbox(index) {
+            currentIndex = index;
+            updateLightbox();
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function updateLightbox() {
+            document.getElementById('lightbox-img').src = galleryImages[currentIndex];
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % galleryImages.length;
+            updateLightbox();
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+            updateLightbox();
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('lightbox').classList.contains('active')) {
+                if (e.key === 'ArrowRight') nextImage();
+                if (e.key === 'ArrowLeft') prevImage();
+                if (e.key === 'Escape') closeLightbox();
+            }
+            if (e.key === 'Escape' && document.getElementById('nav-links').classList.contains('active')) {
+                closeMenu();
+            }
+        });
+
+        // Swipe Support
+        const lb = document.getElementById('lightbox');
+        lb.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        lb.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            const threshold = 50;
+            if (touchEndX < touchStartX - threshold) nextImage();
+            if (touchEndX > touchStartX + threshold) prevImage();
+        }
+
+        function scrollToSection(id) {
+            closeMenu();
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function selectServiceAndScroll(serviceValue)
